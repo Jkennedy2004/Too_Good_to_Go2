@@ -1,8 +1,11 @@
+// api-gateway/src/pedido/pedido.module.ts
 import { Module } from '@nestjs/common';
-import { PedidoService } from './pedido.service';
 import { PedidoResolver } from './pedido.resolver';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  providers: [PedidoResolver, PedidoService],
+  imports: [HttpModule],
+  providers: [PedidoResolver],
+  exports: [PedidoResolver]
 })
 export class PedidoModule {}

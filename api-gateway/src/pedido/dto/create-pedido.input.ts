@@ -1,16 +1,21 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+// api-gateway/src/pedido/dto/create-pedido.input.ts
+import { InputType, Field, Float, Int } from '@nestjs/graphql';
+import { CreateDetallePedidoInput } from '../../detalle-pedido/dto/create-detalle-pedido.input'; // Se importará después
 
-@ObjectType()
-export class Pedido {
+@InputType()
+export class CreatePedidoInput {
   @Field(() => Int)
-  id: number;
-
-  @Field()
-  fecha_pedido: string;
-
-  @Field(() => Int)
-  usuario_id: number;
+  usuarioId: number;
 
   @Field(() => Int)
-  restaurante_id: number;
+  restauranteId: number;
+
+  @Field({ nullable: true, defaultValue: "pendiente" })
+  estado?: string;
+
+  @Field(() => Float, { nullable: true, defaultValue: 0.0 })
+  total?: number;
+
+  @Field(() => [CreateDetallePedidoInput]) // Mismo nombre que en el Pydantic PedidoCreate
+  detalles: CreateDetallePedidoInput[];
 }

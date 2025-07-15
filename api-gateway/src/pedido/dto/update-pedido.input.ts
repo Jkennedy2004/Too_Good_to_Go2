@@ -1,8 +1,15 @@
+// api-gateway/src/pedido/dto/update-pedido.input.ts
+import { InputType, Field, Float, PartialType } from '@nestjs/graphql';
 import { CreatePedidoInput } from './create-pedido.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
 export class UpdatePedidoInput extends PartialType(CreatePedidoInput) {
-  @Field(() => Int)
-  id: number;
+  @Field({ nullable: true })
+  estado?: string;
+
+  @Field(() => Float, { nullable: true })
+  total?: number;
+  
+  // Si detalles se pudiera actualizar directamente por update, se añadiría aquí,
+  // pero tu Pydantic PedidoUpdate no lo incluye.
 }
